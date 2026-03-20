@@ -3,6 +3,7 @@ package at.htl.boundary;
 import at.htl.model.Person;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.LockModeType;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -46,11 +47,12 @@ public class PessimisticResource {
     public Person write(@PathParam("name") String lastname) {
         var query = entityManager.createQuery("select p from Person p where lower(lastname)=lower(:lastname)", Person.class);
         query.setParameter("lastname", lastname);
+        query.setLockMode(LockModeType.PESSIMISTIC_WRITE);
         Person p = query.getSingleResult();
 
         logger.info("PESSIMISTIC_WRITE: " + p);
         try {
-            Thread.sleep(30000);
+            Thread.sleep(15000);
         } catch (InterruptedException ioe) {
         }
 

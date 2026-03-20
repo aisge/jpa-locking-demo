@@ -40,9 +40,11 @@ Ergänzen Sie in der Methode `write()` folgende Zeile:
 query.setLockMode(LockModeType.PESSIMISTIC_WRITE);
 ----
 
-Wiederholen Sie die Aufrufe und achten Sie wieder auf die Konsolenausgabe.
+Starten Sie nun 2 Aufrufe auf den gleichen Datensatz und achten Sie wieder auf die Konsolenausgabe.
 
 Die erste Ausgabe erfolgt sofort, die zweite Ausgabe erfolgt erst, nachdem die erste Transaktion abgeschlossen wurde und somit das Lock wieder freigegeben wurde. Erst dann kann der zweite Aufruf das Lock erhalten.
+
+Gesperrt werden im Normalfall jedoch nur die von der Query gelieferten Datensätze.
 
 Versuchen Sie auch, die Methode `read()` aufzurufen. Diese wird sofort ein Ergebnis liefern, weil darin nicht explizit ein Lock gesetzt wird.
 
