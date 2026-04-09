@@ -47,7 +47,6 @@ public class PessimisticResource {
     public Person write(@PathParam("name") String lastname) {
         var query = entityManager.createQuery("select p from Person p where lower(lastname)=lower(:lastname)", Person.class);
         query.setParameter("lastname", lastname);
-        query.setLockMode(LockModeType.PESSIMISTIC_WRITE);
         Person p = query.getSingleResult();
 
         logger.info("PESSIMISTIC_WRITE: " + p);
